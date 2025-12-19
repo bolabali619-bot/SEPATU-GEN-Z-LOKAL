@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEPATU GEN Z LOKAL - Toko Sepatu Murah dan Modern</title>
+    <style>
+        /* Reset dan Font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        .nav-links a {
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #ff6b6b;
+        }
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            background: #ff6b6b;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #ff5252;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .products h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 1rem;
+        }
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+        }
+        .price {
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+        .cart-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .total {
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        /* Checkout */
+        .checkout-form {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+        .checkout-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">SEPATU GEN Z LOKAL</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Produk</a></li>
+                <li><a href="#about">Tentang Kami</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+            <div class="cart-icon" onclick="showCart()">
+                🛒 <span class="cart-count" id="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Selamat Datang di SEPATU GEN Z LOKAL</h1>
+            <p>Sepatu murah mulai dari 100 ribu, gaya modern untuk Gen Z!</p>
+            <button class="btn" onclick="scrollToProducts()">Lihat Produk</button>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <h2>Produk Kami</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Sepatu Nike">
+                <div class="product-info">
+                    <h3>Sepatu Nike Air Max</h3>
+                    <p class="price">Rp 150.000</p>
+                    <button class="btn" onclick="addToCart('Sepatu Nike Air Max', 150000)">Tambah ke Keranjang</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Sepatu Adidas">
+                <div class="product-info">
+                    <h3>Sepatu Adidas Ultraboost</h3>
+                    <p class="price">Rp 200.000</p>
+                    <button class="btn" onclick="addToCart('Sepatu Adidas Ultraboost', 200000)">Tambah ke Keranjang</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Sepatu Converse">
+                <div class="product-info">
+                    <h3>Sepatu Converse Chuck Taylor</h3>
+                    <p class="price">Rp 120.000</p>
+                    <button class="btn" onclick="addToCart('Sepatu Converse Chuck Taylor', 120000)">Tambah ke Keranjang</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Sepatu Vans">
+                <div class="product-info">
+                    <h3>Sepatu Vans Old Skool</h3>
+                    <p class="price">Rp 100.000</p>
+                    <button class="btn" onclick="addToCart('Sepatu Vans Old Skool', 100000)">Tambah ke Keranjang</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" style="padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; text-align: center;">
+        <h2>Tentang Kami</h2>
+        <p>SEPATU GEN Z LOKAL adalah toko online sepatu lokal dengan harga terjangkau, fokus pada gaya modern untuk generasi Z. Kami menyediakan sepatu berkualitas dengan harga mulai dari 100 ribu.</p>
+    </section>
+
+    <section id="contact" style="padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; text-align: center;">
+        <h2>Kontak Kami</h2>
+        <p>Email: info@sepatugenzlokal.com | Telepon: 0812-3456-7890</p>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <h2>Keranjang Belanja</h2>
+            <div id="cart-items"></div>
+            <div class="total" id="cart-total">Total: Rp 0</div>
+            <button class="btn" onclick="checkout()">Checkout</button>
+            <button class="btn" onclick="closeCart()">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Checkout Form -->
+    <div class="checkout-form" id="checkout-form">
+        <div class="checkout-content">
+            <h2>Checkout</h2>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="name">Nama Lengkap</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Alamat</label>
+                    <input type="text" id="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="payment-method">Metode Pembayaran</label>
+                    <select id="payment-method" required>
+                        <option value="transfer">Transfer Bank</option>
+                        <option value="cod">Bayar di Tempat</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Bayar Sekarang</button>
+                <button type="button" class="btn" onclick="closeCheckout()">Batal</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 SEPATU GEN Z LOKAL. Semua hak dilindungi.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+        let total = 0;
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            total += price;
+            updateCartCount();
+            alert(`${name} ditambahkan ke keranjang!`);
+        }
+
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+
+        function showCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `<span>${item.name}</span><span>Rp ${item.price.toLocaleString()}</span>`;
+                cartItems.appendChild(div);
+            });
+            document.getElementById('cart-total').textContent = `Total: Rp ${total.toLocaleString()}`;
+            document.getElementById('cart-modal').style.display = 'flex';
+        }
+
+        function closeCart() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+
+        function checkout() {
+            closeCart();
+            document.getElementById('checkout-form').style.display = 'flex';
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-form').style.display = 'none';
+        }
+
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Pembayaran berhasil! Terima kasih telah berbelanja di SEPATU GEN Z LOKAL.');
+            cart = [];
+            total = 0;
+            updateCartCount();
+            closeCheckout();
+        });
+
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
